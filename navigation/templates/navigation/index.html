@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flight Navigation</title>
+</head>
+<body>
+    <h1>Flight Navigation Dashboard</h1>
+    <h2>Weather Data</h2>
+    {% for weather in weather_data %}
+    <p>City: {{ weather.city }}</p>
+    <p>Temperature: {{ weather.temperature }}</p>
+    <p>Wind Speed: {{ weather.wind_speed }}</p>
+    <p>Visibility: {{ weather.visibility }}</p>
+    {% endfor %}
+    
+    <h2>Flight Status</h2>
+    {% for flight in flight_status %}
+    <p>Flight Number: {{ flight.flight_number }}</p>
+    <p>Status: {{ flight.status }}</p>
+    <p>Latitude: {{ flight.latitude }}</p>
+    <p>Longitude: {{ flight.longitude }}</p>
+    <p>Altitude: {{ flight.altitude }}</p>
+    {% endfor %}
+</body>
+</html>

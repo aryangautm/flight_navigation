@@ -1,9 +1,15 @@
 asgiref==3.8.1
 certifi==2024.2.2
+channels==4.1.0
 charset-normalizer==3.3.2
 Django==5.0.6
+djangorestframework==3.15.1
 idna==3.7
+networkx==3.3
 psycopg2-binary==2.9.9
+python-decouple==3.8
 requests==2.32.1
+setuptools==69.5.1
 sqlparse==0.5.0
 urllib3==2.2.1
+wheel==0.43.0

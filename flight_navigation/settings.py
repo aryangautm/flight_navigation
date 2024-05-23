@@ -92,12 +92,12 @@ CHANNEL_LAYERS = {
 
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'flight2',
-        'USER': 'flight2',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "flight",
+        "USER": "flight",
+        "PASSWORD": "1234",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 

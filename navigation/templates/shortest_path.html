@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Shortest Path</title>
+</head>
+<body>
+    <h1>Find Shortest Path</h1>
+    <form id="pathForm">
+        Source Airport: <input type="text" id="source" name="source"><br>
+        Destination Airport: <input type="text" id="destination" name="destination"><br>
+        <button type="button" onclick="findShortestPath()">Find Path</button>
+    </form>
+    <div id="pathResult"></div>
+
+    <script>
+        function findShortestPath() {
+            var source = document.getElementById("source").value.toUpperCase();
+            var destination = document.getElementById("destination").value.toUpperCase();
+            fetch(`/api/shortest-path/?source=${source}&destination=${destination}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("pathResult").innerHTML = `
+                        <p>Path: ${data.path.join(' -> ')}</p>
+                        <p>Distance: ${data.distance} km</p>
+                    `;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

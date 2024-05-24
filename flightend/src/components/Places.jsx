@@ -15,7 +15,7 @@ const Places = () => {
   };
   return (
     <>
-      <div className="px-8 flex flex-col gap-7">
+      {/* <div className="px-8 flex flex-col gap-7">
         <div className="flex items-center justify-between">
           <p className="text-[#6E7491] font-medium md:font-bold sm:text-base md:text-[24px] md:leading-8">
             Explore unique
@@ -46,7 +46,7 @@ const Places = () => {
             desc="Traditional Mongolian yurts consists of an angled latticework of wood or bamboo for walls, ribs, and a wheel."
           />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

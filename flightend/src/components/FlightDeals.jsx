@@ -16,7 +16,7 @@ const FlightDeals = () => {
 
   return (
     <>
-      <div className="px-8 flex flex-col gap-7">
+      {/* <div className="px-8 flex flex-col gap-7">
         <div className="flex items-center justify-between">
           <p className="text-[#6E7491] font-medium md:font-bold sm:text-base md:text-[24px] md:leading-8">
             Find your next adventure <br className=" block sm:hidden " /> with
@@ -72,7 +72,7 @@ const FlightDeals = () => {
         </div>
         </div>
 
-      </div>
+      </div> */}
     </>
   );
 };

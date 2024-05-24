@@ -5,7 +5,7 @@ import { PlacesCard } from "../container"
 const Hotels = () => {
   return (
     <>
-    <div className=" px-8 flex flex-col gap-7 mt-10">
+    {/* <div className=" px-8 flex flex-col gap-7 mt-10">
     <div className="flex items-start justify-start">
           <p className="text-[#6E7491] font-medium md:font-bold sm:text-base md:text-[24px] md:leading-8">
             Find best <span className="text-[#54cdb7]">places to stay</span>
@@ -46,7 +46,7 @@ const Hotels = () => {
               desc="Experience a truly unique stay in an authentic Japanese capsule hotel. 9 Hours Shinjuku is minutes from one of Japan’s busiest train stations. Just take the NEX train from Narita airport!"
             />
         </div>
-    </div>
+    </div> */}
     </>
   )
 }

@@ -27,7 +27,7 @@ const Navbar = () => {
             className="md:w-[150px] md:h-[50px] w-[120px] h-[40px] object-contain"
           />
           
-       <div className="relative md:hidden flex items-center">
+          <div className="relative md:hidden flex items-center">
        {toggle ? (
           <MdOutlineClose src={close} alt="close" className="w-7 h-7 text-[#605DEC] cursor-pointer" onClick={() => setToggle(false)}/>
           ) : (
@@ -44,11 +44,7 @@ const Navbar = () => {
             </ul>
         )}
         </div>
-          {/* <img
-            src={tripma}
-            alt="Naviator"
-            className="md:w-[107px] md:h-[30px] w-[90px] h-[25px] object-contain"
-          /> */}
+        
         </div>
          <div className="">
           <button className="block md:hidden bg-[#605DEC] py-2 px-4 md:py-3 md:px-5 rounded-[5px] border-2 border-[#605DEC] text-base text-[#FAFAFA] hover:text-[#605DEC] hover:bg-white hover:border-2 hover:border-[#605DEC] transition-all duration-200" onClick={() => setSignin(!signin)}>Sign up</button>

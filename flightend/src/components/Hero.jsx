@@ -176,5 +176,3 @@ const Hero = () => {
 };
 
 export default Hero;
-
-//git push -u origin main

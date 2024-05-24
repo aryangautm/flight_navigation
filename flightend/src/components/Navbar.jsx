@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { tripma } from "../assets/logo";
+import naviator  from "../assets/logo/naviator.png";
 import { MdOutlineClose } from 'react-icons/md'
 import { BiMenuAltLeft } from 'react-icons/bi'
 import { useState } from "react";
@@ -21,6 +21,11 @@ const Navbar = () => {
       <nav className="w-full flex flex-row items-center justify-between px-2 py-2 relative">
 
         <div className="flex items-center justify-center gap-3">
+        <img
+            src={naviator}
+            alt="naviator"
+            className="md:w-[150px] md:h-[50px] w-[120px] h-[40px] object-contain"
+          />
           
        <div className="relative md:hidden flex items-center">
        {toggle ? (
@@ -36,26 +41,14 @@ const Navbar = () => {
             >
               <li>Flights</li>
             </Link>
-            {/* <Link
-              to="/hotels"
-              className={`text-base hover:text-[#605DEC] transition-all duration-200 ${loactionPath("/hotels") && "text-[#605DEC]"}`}
-            >
-              <li>Hotels</li>
-            </Link>
-            <Link
-              to="/packages"
-              className={`text-base hover:text-[#605DEC] transition-all duration-200 ${loactionPath("/packages") && "text-[#605DEC]"}`}
-            >
-              <li>Packages</li>
-            </Link> */}
             </ul>
         )}
         </div>
-          <img
+          {/* <img
             src={tripma}
-            alt="Tripma"
+            alt="Naviator"
             className="md:w-[107px] md:h-[30px] w-[90px] h-[25px] object-contain"
-          />
+          /> */}
         </div>
          <div className="">
           <button className="block md:hidden bg-[#605DEC] py-2 px-4 md:py-3 md:px-5 rounded-[5px] border-2 border-[#605DEC] text-base text-[#FAFAFA] hover:text-[#605DEC] hover:bg-white hover:border-2 hover:border-[#605DEC] transition-all duration-200" onClick={() => setSignin(!signin)}>Sign up</button>
@@ -67,6 +60,7 @@ const Navbar = () => {
         {/* Desktop View */}
 
         <div className="hidden md:flex items-center space-x-8">
+          
           <ul className="hidden md:flex items-center space-x-8 text-[#7C8DB0]">
             <Link
               to="/"
@@ -74,18 +68,6 @@ const Navbar = () => {
             >
               <li>Flights</li>
             </Link>
-            {/* <Link
-              to="/hotels"
-              className={`text-base hover:text-[#605DEC] transition-all duration-200 ${loactionPath("/hotels") && "text-[#605DEC]"}`}
-            >
-              <li>Places</li>
-            </Link>
-            <Link
-              to="/packages"
-              className={`text-base hover:text-[#605DEC] transition-all duration-200 ${loactionPath("/packages") && "text-[#605DEC]"}`}
-            >
-              <li>Packages</li>
-            </Link> */}
           </ul>
           <div className="">
           <button className="bg-[#605DEC] py-2 px-4 md:py-3 md:px-5 rounded-[5px] border-2 border-[#605DEC] text-base text-[#FAFAFA] hover:text-[#605DEC] hover:bg-white hover:border-2 hover:border-[#605DEC] transition-all duration-200" onClick={() => setSignin(!signin)}>Sign up</button>

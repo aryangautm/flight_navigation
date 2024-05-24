@@ -1,0 +1,7 @@
+*.log
+migrations/
+node_modules/
+__pycache__/
+*.pyc
+*.gpickle
+.vite

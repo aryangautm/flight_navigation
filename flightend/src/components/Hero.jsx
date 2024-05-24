@@ -151,17 +151,18 @@ const Hero = () => {
           </div>
 
           <div className="flex w-full lg:w-[174.92px] h-full justify-start items-center border-[1px] border-[#CBD4E6] p-2" style={{ width: "600px" }}>
-            <select className="text-[#7C8DB0] text-sm leading-6 ml-2 cursor-pointer"
-          value={departureTime}
-          onChange={handleTimeChange}
-          // className="ml-2 border-[1px] border-[#CBD4E6] text-[#7C8DB0] text-sm leading-6 cursor-pointer"
-        >
-          <option value="">Select Departure Time</option>
-          <option value="08:00">8:00 AM</option>
-          <option value="12:00">12:00 PM</option>
-          <option value="18:00">6:00 PM</option>
-        </select>
+            <div style={{ width: '100%' }}>
+              <label style={{ display: 'block', marginBottom: '0px', color: '#7C8DB0'}} >Departure Time</label>
+              <input
+                type="time"
+                value={departureTime}
+                onChange={handleTimeChange}
+                required
+                style={{width: '100%', padding: '2px', borderRadius: '0px', border: '0px solid red' }}
+              />
             </div>
+          </div>
+
 
           <Link to="/explore" className="w-full ">
             <button className="w-full bg-[#605DEC] text-[#FAFAFA] text-lg leading-6 h-[45px] lg:h-[65px] px-5   lg:rounded-r-[4px]">

@@ -8,7 +8,7 @@ const Testimonials = () => {
       <div className="flex flex-col gap-10 px-8">
         <div className="flex items-center justify-center">
           <h1 className="text-[#6E7491] font-medium md:font-bold sm:text-base md:text-[24px] md:leading-8">
-            What <span className="text-[#605DEC]">Tripma</span> users are saying
+            What <span className="text-[#605DEC]">Naviator</span> users are saying
           </h1>
         </div>
 
@@ -30,7 +30,7 @@ const Testimonials = () => {
             <img src={Star} alt="" />
             <img src={Star} alt="" />
             </div>
-            <p className="text-[#27273F] text-base">What a great experience using Tripma! I booked all of my flights for my gap year through Tripma and never had any issues. When I had to cancel a flight because of an emergency, Tripma support helped me <span className="text-[#605DEC]"> read more...</span></p>
+            <p className="text-[#27273F] text-base">What a great experience using Naviator! I booked all of my flights for my gap year through Naviator and never had any issues. When I had to cancel a flight because of an emergency, Naviator support helped me <span className="text-[#605DEC]"> read more...</span></p>
           </div>
          </div>
 
@@ -50,7 +50,7 @@ const Testimonials = () => {
             <img src={Star} alt="" />
             <img src={Star} alt="" />
             </div>
-            <p className="text-[#27273F] text-base">My family and I visit Hawaii every year, and we usually book our flights using other services. Tripma was recommened to us by a long time friend, and I’m so glad we tried it out! The process was easy and <span className="text-[#605DEC]"> read more...</span></p>
+            <p className="text-[#27273F] text-base">My family and I visit Hawaii every year, and we usually book our flights using other services. Naviator was recommened to us by a long time friend, and I’m so glad we tried it out! The process was easy and <span className="text-[#605DEC]"> read more...</span></p>
           </div>
          </div>
 
@@ -70,7 +70,7 @@ const Testimonials = () => {
             <img src={Star} alt="" />
             <img src={Star} alt="" />
             </div>
-            <p className="text-[#27273F] text-base">When I was looking to book my flight to Berlin from LAX, Tripma had the best browsing experiece so I figured I’d give it a try. It was my first time using Tripma, but I’d definitely recommend it to a friend and use it for <span className="text-[#605DEC]"> read more...</span></p>
+            <p className="text-[#27273F] text-base">When I was looking to book my flight to Berlin from LAX, Naviator had the best browsing experiece so I figured I’d give it a try. It was my first time using Naviator, but I’d definitely recommend it to a friend and use it for <span className="text-[#605DEC]"> read more...</span></p>
           </div>
          </div>
 

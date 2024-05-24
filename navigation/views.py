@@ -1,16 +1,17 @@
 import json
 import logging
-import os
 import pickle
 
 import networkx as nx
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.management import call_command
-from django.shortcuts import get_object_or_404
+from django.http import Http404
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from .algo import yen_k_shortest_paths
 from .models import Airport, Route
+from .serializers import AirportSerializer
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -23,27 +24,14 @@ error_handler.setFormatter(
 )
 logging.getLogger().addHandler(error_handler)
 
+AVERAGE_SPEED_KMH = 900
+
 
 class ShortestPathView(APIView):
     def get(self, request):
         source_code = request.GET.get("source")
         dest_code = request.GET.get("destination")
-
-        try:
-            source_airport = Airport.objects.get(iata=source_code)
-            dest_airport = Airport.objects.get(iata=dest_code)
-            existing_route = Route.objects.get(
-                source=source_airport, destination=dest_airport
-            )
-            return Response(
-                {
-                    "path": json.loads(existing_route.path),
-                    "distance": existing_route.distance,
-                }
-            )
-        except ObjectDoesNotExist:
-            logging.info("Finding the best route...")
-            pass
+        print(source_code, dest_code)
 
         try:
             with open("dataset/graph.gpickle", "rb") as f:
@@ -51,7 +39,7 @@ class ShortestPathView(APIView):
         except FileNotFoundError:
             logging.error("Error: Graph not found. Trying to load airport data...")
             # Call the management command to load airport data
-            call_command("load_airport_data")
+            call_command("load_network")
             # Now try to load the graph again
             try:
                 with open("dataset/graph.gpickle", "rb") as f:
@@ -60,34 +48,95 @@ class ShortestPathView(APIView):
                 logging.error("Error: Graph not found even after loading airport data.")
                 return Response({"error": "Graph not found"}, status=500)
 
+        if source_code not in G or dest_code not in G:
+            return Response(
+                {"error": "Invalid airport code provided."},
+                status=400,
+            )
         try:
-            path = nx.shortest_path(
-                G, source=source_code, target=dest_code, weight="weight"
+            paths = yen_k_shortest_paths(
+                G, source_code, dest_code, k=5, weight="weight"
             )
-            distance = nx.shortest_path_length(
-                G, source=source_code, target=dest_code, weight="weight"
-            )
+            print(paths)
+            response_paths = []
 
-            for iata in path:
-                if not Airport.objects.filter(iata=iata).exists():
+            for path in paths:
+                response_route = {"paths": []}
+                total_distance = round(
+                    sum(
+                        G[path[i]][path[i + 1]]["weight"] for i in range(len(path) - 1)
+                    ),
+                    2,
+                )
+                time_taken = round(total_distance / AVERAGE_SPEED_KMH, 2)
+
+                airports = []
+                for iata in path:
                     node_data = G.nodes[iata]
-                    Airport.objects.create(
-                        iata=node_data["iata"],
-                        icao=node_data["icao"],
-                        name=node_data["name"],
-                        latitude=node_data["latitude"],
-                        longitude=node_data["longitude"],
+                    defaults = {
+                        "iata": node_data["iata"],
+                        "icao": node_data["icao"],
+                        "name": node_data["name"],
+                        "city": node_data["city"],
+                        "country": node_data["country"],
+                        "latitude": round(node_data["latitude"], 2),
+                        "longitude": round(node_data["longitude"], 2),
+                    }
+                    airport, created = Airport.objects.update_or_create(
+                        iata=node_data["iata"], defaults=defaults
+                    )
+                    airports.append(airport)
+                    response_route["paths"].append(defaults)
+
+                response_route.update(
+                    {
+                        "destination": airports[-1].iata,
+                        "destinationName": airports[-1].name,
+                        "destinationCountryCode": "us",
+                        "destinationCity": airports[-1].city,
+                        "destinationCountryName": airports[-1].country,
+                        "source": airports[0].iata,
+                        "sourceName": airports[0].name,
+                        "sourceCountryCode": "in",
+                        "sourceCity": airports[0].city,
+                        "sourceCountryName": airports[0].country,
+                        "totalTime": time_taken,
+                        "totalDistance": total_distance,
+                        "avgFeasibility": "96.4%",
+                        "totalEmissions": "23312 kg CO2",
+                    }
+                )
+
+                route, created = Route.objects.get_or_create(
+                    source=airports[0],
+                    destination=airports[-1],
+                    defaults={
+                        "path": json.dumps(path),
+                        "distance": total_distance,
+                        "duration": time_taken,
+                    },
+                )
+
+                for i in range(len(path) - 1):
+                    distance = round(G[path[i]][path[i + 1]]["weight"], 2)
+                    time_duration = round(distance / AVERAGE_SPEED_KMH)
+                    Route.objects.get_or_create(
+                        source=airports[i],
+                        destination=airports[i + 1],
+                        defaults={
+                            "path": json.dumps([path[i], path[i + 1]]),
+                            "distance": distance,
+                            "duration": time_duration,
+                        },
                     )
 
-            source_airport = get_object_or_404(Airport, iata=source_code)
-            dest_airport = get_object_or_404(Airport, iata=dest_code)
+                response_paths.append(response_route)
 
-            route, created = Route.objects.get_or_create(
-                source=source_airport,
-                destination=dest_airport,
-                defaults={"path": json.dumps(path), "distance": distance},
-            )
-            return Response({"path": path, "distance": distance})
+                with open("response.json", "w") as file:
+                    json.dump(response_paths, file)
+
+            return Response(response_paths, status=200)
+
         except nx.NetworkXNoPath:
             return Response(
                 {"error": "No path found between the specified airports."}, status=404
@@ -95,3 +144,17 @@ class ShortestPathView(APIView):
         except Exception as e:
             logging.error(f"Error: {str(e)}")
             return Response({"error": str(e)}, status=500)
+
+
+class AirportDetailView(viewsets.ReadOnlyModelViewSet):
+    queryset = Airport.objects.all()
+    serializer_class = AirportSerializer
+    lookup_field = "iata"
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        iata = self.kwargs.get("iata").upper()
+        try:
+            return queryset.get(iata=iata)
+        except Airport.DoesNotExist:
+            raise Http404("Airport not found")

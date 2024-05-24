@@ -18,7 +18,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="w-full flex flex-row items-center justify-between px-5 py-4 relative">
+      <nav className="w-full flex flex-row items-center justify-between px-2 py-2 relative">
 
         <div className="flex items-center justify-center gap-3">
           
@@ -36,7 +36,7 @@ const Navbar = () => {
             >
               <li>Flights</li>
             </Link>
-            <Link
+            {/* <Link
               to="/hotels"
               className={`text-base hover:text-[#605DEC] transition-all duration-200 ${loactionPath("/hotels") && "text-[#605DEC]"}`}
             >
@@ -47,7 +47,7 @@ const Navbar = () => {
               className={`text-base hover:text-[#605DEC] transition-all duration-200 ${loactionPath("/packages") && "text-[#605DEC]"}`}
             >
               <li>Packages</li>
-            </Link>
+            </Link> */}
             </ul>
         )}
         </div>
@@ -74,7 +74,7 @@ const Navbar = () => {
             >
               <li>Flights</li>
             </Link>
-            <Link
+            {/* <Link
               to="/hotels"
               className={`text-base hover:text-[#605DEC] transition-all duration-200 ${loactionPath("/hotels") && "text-[#605DEC]"}`}
             >
@@ -85,7 +85,7 @@ const Navbar = () => {
               className={`text-base hover:text-[#605DEC] transition-all duration-200 ${loactionPath("/packages") && "text-[#605DEC]"}`}
             >
               <li>Packages</li>
-            </Link>
+            </Link> */}
           </ul>
           <div className="">
           <button className="bg-[#605DEC] py-2 px-4 md:py-3 md:px-5 rounded-[5px] border-2 border-[#605DEC] text-base text-[#FAFAFA] hover:text-[#605DEC] hover:bg-white hover:border-2 hover:border-[#605DEC] transition-all duration-200" onClick={() => setSignin(!signin)}>Sign up</button>

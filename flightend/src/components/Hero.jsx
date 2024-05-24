@@ -1,8 +1,7 @@
 import { departure, arrival, calendar, person } from "../assets/icons";
 
-import { DateRange } from "react-date-range";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { format } from "date-fns";
 // import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -44,26 +43,24 @@ const AutoSuggest = (initialValue) => {
 
 const Hero = () => {
   // const navigate = useNavigate();
+  const [startDate, setStartDate] = useState(null);
   const [openDate, setOpenDate] = useState(false);
-  const [date, setDate] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: "selection",
-    },
-  ]);
+  const [departureTime, setDepartureTime] = useState("");
 
-  const [openOptions, setOpenOptions] = useState(false);
-  const [options, setOptions] = useState({
-    adult: 1,
-    minor: 0,
-  });
+  const handleTimeChange = (event) => {
+    setDepartureTime(event.target.value);
+  };
 
-  const handleOptions = (name, oparetion) => {
+  const handleDateChange = (date) => {
+    setStartDate(date);
+    setOpenDate(false);
+  };
+
+  const handleOptions = (name, operation) => {
     setOptions((prev) => {
       return {
         ...prev,
-        [name]: oparetion === "i" ? options[name] + 1 : options[name] - 1,
+        [name]: operation === "i" ? options[name] + 1 : options[name] - 1,
       };
     });
   };
@@ -139,79 +136,32 @@ const Hero = () => {
               className="text-[#7C8DB0] text-base leading-6 ml-2 cursor-pointer"
               onClick={() => setOpenDate(!openDate)}
             >
-              {openDate
-                ? `${format(date[0].startDate, "dd/MM/yyyy")} to ${format(
-                    date[0].endDate,
-                    "dd/MM/yyyy"
-                  )}`
-                : "Depart to Return"}
+              {startDate
+                ? `${format(startDate, "dd/MM/yyyy")}`
+                : "Departure Date"}
             </span>
             {openDate && (
-              <DateRange
-                editableDateInputs={true}
-                onChange={(item) => setDate([item.selection])}
-                moveRangeOnFirstSelection={false}
-                ranges={date}
-                className="absolute top-64 lg:top-20 z-10 "
-              />
+              <DatePicker
+          selected={startDate}
+          onChange={handleDateChange}
+          inline
+          className="absolute top-64 lg:top-20 z-10"
+               />
             )}
           </div>
 
-          <div className="flex w-full h-full justify-start items-center border-[1px] border-[#CBD4E6]  p-2">
-            <img src={person} alt="person" />
-            <span
-              className="text-[#7C8DB0] text-base leading-6 ml-2 cursor-pointer"
-              onClick={() => setOpenOptions(!openOptions)}
-            >
-              {`${options.adult} Adult - ${options.minor} Minor `}
-            </span>
-            {openOptions && (
-              <div className="w-52 h-fit flex flex-col gap-4 rounded-md bg-white shadowCard absolute lg:top-[70px] top-64 p-4 z-10">
-                <div className="flex justify-between items-center">
-                  <span className="text-[#7C8DB0] text-base leading-6">
-                    Adults:
-                  </span>
-                  <div className="flex items-center gap-4">
-                    <button
-                      className="border-2 border-[#605DEC] px-2 text-[#7C8DB0] disabled:cursor-not-allowed"
-                      onClick={() => handleOptions("adult", "d")}
-                      disabled={options.adult <= 1}
-                    >
-                      -
-                    </button>
-                    <span className="text-[#7C8DB0]">{options.adult}</span>
-                    <button
-                      className="border-2 border-[#605DEC] px-2 text-[#7C8DB0]"
-                      onClick={() => handleOptions("adult", "i")}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#7C8DB0] text-base leading-6">
-                    Minors:
-                  </span>
-                  <div className="flex items-center gap-4">
-                    <button
-                      className="border-2 border-[#605DEC] px-2 text-[#7C8DB0] disabled:cursor-not-allowed"
-                      onClick={() => handleOptions("minor", "d")}
-                      disabled={options.minor <= 0}
-                    >
-                      -
-                    </button>
-                    <span className="text-[#7C8DB0]">{options.minor}</span>
-                    <button
-                      className="border-2 border-[#605DEC] px-2 text-[#7C8DB0]"
-                      onClick={() => handleOptions("minor", "i")}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
+          <div className="flex w-full lg:w-[174.92px] h-full justify-start items-center border-[1px] border-[#CBD4E6] p-2" style={{ width: "600px" }}>
+            <select className="text-[#7C8DB0] text-sm leading-6 ml-2 cursor-pointer"
+          value={departureTime}
+          onChange={handleTimeChange}
+          // className="ml-2 border-[1px] border-[#CBD4E6] text-[#7C8DB0] text-sm leading-6 cursor-pointer"
+        >
+          <option value="">Select Departure Time</option>
+          <option value="08:00">8:00 AM</option>
+          <option value="12:00">12:00 PM</option>
+          <option value="18:00">6:00 PM</option>
+        </select>
+            </div>
 
           <Link to="/explore" className="w-full ">
             <button className="w-full bg-[#605DEC] text-[#FAFAFA] text-lg leading-6 h-[45px] lg:h-[65px] px-5   lg:rounded-r-[4px]">

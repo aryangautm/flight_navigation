@@ -13,7 +13,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 
 from decouple import config
+import environ
 
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,11 +34,7 @@ OPENWEATHERMAP_API_KEY = config("OPENWEATHERMAP_API_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "192.168.29.135:8000",
-    "192.168.29.135",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -99,14 +99,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "flight",
-        "USER": "flight",
-        "PASSWORD": "1234",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
+    "default": env.db(),
 }
 
 

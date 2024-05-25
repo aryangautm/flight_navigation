@@ -63,6 +63,7 @@ Naviator is an advanced flight navigation system designed to calculate the best 
         cd frontend
         npm run dev
         ```
+8. Create a .env file. Refer sample.env
 
 ## Usage
 

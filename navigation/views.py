@@ -9,6 +9,9 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from aviation_data.utils import get_weather_data
+from country_code import country_codes
+
 from .algo import yen_k_shortest_paths
 from .models import Airport, Route
 from .serializers import AirportSerializer
@@ -25,6 +28,7 @@ error_handler.setFormatter(
 logging.getLogger().addHandler(error_handler)
 
 AVERAGE_SPEED_KMH = 900
+CO2_EMISSIONS_G = 115
 
 
 class ShortestPathView(APIView):
@@ -91,28 +95,36 @@ class ShortestPathView(APIView):
                     {
                         "destination": airports[-1].iata,
                         "destinationName": airports[-1].name,
-                        "destinationCountryCode": "us",
+                        "destinationCountryCode": (
+                            country_codes[airports[-1].country]
+                        ).lower(),
                         "destinationCity": airports[-1].city,
                         "destinationCountryName": airports[-1].country,
                         "source": airports[0].iata,
                         "sourceName": airports[0].name,
-                        "sourceCountryCode": "in",
+                        "sourceCountryCode": (
+                            country_codes[airports[0].country]
+                        ).lower(),
                         "sourceCity": airports[0].city,
                         "sourceCountryName": airports[0].country,
-                        "totalTime": time_taken,
-                        "totalDistance": total_distance,
-                        "avgFeasibility": "96.4%",
-                        "totalEmissions": "23312 kg CO2",
+                        "totalTime": f"{time_taken} hr",
+                        "totalDistance": f"{total_distance} km",
+                        "totalEmissions": f"{round(total_distance * CO2_EMISSIONS_G/1000000, 1)}Mn gm CO2 per Passenger",
                     }
                 )
                 response_route.update({"paths": []})
+
                 a0_defaults = {
                     "airportCode": airports[0].iata,
                     "airportName": airports[0].name,
+                    "countryCode": (country_codes[airports[0].country]).lower(),
                     "cityName": airports[0].city,
                     "countryName": airports[0].country,
-                    "time": 0,
-                    "distance": 0,
+                    "time": f"0 hr",
+                    "distance": f"0 km",
+                    "weather": get_weather_data(
+                        airports[0].longitude, airports[0].latitude
+                    ),
                 }
                 response_route["paths"].append(a0_defaults)
 
@@ -142,10 +154,14 @@ class ShortestPathView(APIView):
                     ai_defaults = {
                         "airportCode": airports[i + 1].iata,
                         "airportName": airports[i + 1].name,
+                        "countryCode": (country_codes[airports[i + 1].country]).lower(),
                         "cityName": airports[i + 1].city,
                         "countryName": airports[i + 1].country,
-                        "time": time_duration,
-                        "distance": distance,
+                        "time": f"{time_duration} hr",
+                        "distance": f"{distance} km",
+                        "weather": get_weather_data(
+                            airports[i + 1].longitude, airports[i + 1].latitude
+                        ),
                     }
                     response_route["paths"].append(ai_defaults)
 

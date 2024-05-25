@@ -35,7 +35,7 @@ Naviator is an advanced flight navigation system designed to calculate the best 
     ```
 4. Install the frontend dependencies:
     ```bash
-    cd frontend
+    cd flightend
     npm install
     cd ..
     ```
@@ -85,14 +85,6 @@ We welcome contributions to improve Naviator! Here are some ways you can help:
 - Report bugs and issues
 - Suggest new features or enhancements
 - Submit pull requests with improvements or fixes
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-## Contact
-
-For any inquiries or feedback, please reach out to us at contact@naviator.com.
 
 ---
 

@@ -156,7 +156,7 @@ const Hero = () => {
               console.log(departureSuggest.input);
               console.log(arrivalSuggest.input);
               const url =
-                "http://192.168.29.135:8000/api/shortest-path/?source=" +
+                "http://127.0.0.1:8000/api/shortest-path/?source=" +
                 departureSuggest.input.toUpperCase() +
                 "&destination=" +
                 arrivalSuggest.input.toUpperCase();

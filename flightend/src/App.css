@@ -6,8 +6,7 @@
 }
 
 .scaleUp {
-  -webkit-animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1)
-    both;
+  -webkit-animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 
@@ -16,16 +15,19 @@
     -webkit-transform: scale(0.5);
     transform: scale(0.5);
   }
+
   100% {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
 }
+
 @keyframes scale-up-center {
   0% {
     -webkit-transform: scale(0.5);
     transform: scale(0.5);
   }
+
   100% {
     -webkit-transform: scale(1);
     transform: scale(1);
@@ -33,15 +35,27 @@
 }
 
 .text-gradient {
-  background: radial-gradient(
-    64.18% 64.18% at 71.16% 35.69%,
-    #9c53ff 0.89%,
-    #9c53ff 17.23%,
-    #007dff 42.04%,
-    #9c53ff 55.12%,
-    #9c53ff 60.54%,
-    #007dff 100%
-  );
+  background: radial-gradient(64.18% 64.18% at 71.16% 35.69%,
+      #9c53ff 0.89%,
+      #9c53ff 17.23%,
+      #007dff 42.04%,
+      #9c53ff 55.12%,
+      #9c53ff 60.54%,
+      #007dff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.text-gradient2 {
+  background: radial-gradient(64.18% 64.18% at 71.16% 35.69%,
+      #ff1010 0.89%,
+      #ff0b0b 17.23%,
+      #ff1c1c 42.04%,
+      #ff5353 55.12%,
+      #ff5353 60.54%,
+      #ff5050 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -52,6 +66,7 @@
   box-shadow: 0px 2px 4px rgba(7, 4, 146, 0.1),
     0px 24px 60px rgba(6, 47, 125, 0.05), 0px 12px 24px rgba(27, 59, 119, 0.05);
 }
+
 .dealsShadow {
   box-shadow: 0px 2px 4px rgba(28, 5, 77, 0.1),
     0px 12px 32px rgba(0, 0, 0, 0.05);
@@ -62,11 +77,11 @@
 }
 
 .priceGridHead {
-  @apply w-[50px] sm:w-[65px] pt-2 h-full text-center border-r-[1px]  border-[#E9E8FC] text-[#52556F] font-bold text-xs;
+  @apply w-[50px] sm:w-[65px] pt-2 h-full text-center border-r-[1px] border-[#E9E8FC] text-[#52556F] font-bold text-xs;
 }
 
 .priceGridText {
-  @apply w-[50px] sm:w-[65px] h-full text-center border-r-[1px]  border-[#E9E8FC] p-2 text-[#6E7491] font-normal text-sm;
+  @apply w-[50px] sm:w-[65px] h-full text-center border-r-[1px] border-[#E9E8FC] p-2 text-[#6E7491] font-normal text-sm;
 }
 
 .paymentoptions {

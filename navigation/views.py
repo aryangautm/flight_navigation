@@ -33,8 +33,8 @@ CO2_EMISSIONS_G = 115
 
 class ShortestPathView(APIView):
     def get(self, request):
-        source_code = request.GET.get("source")
-        dest_code = request.GET.get("destination")
+        source_code = request.GET.get("source").upper()
+        dest_code = request.GET.get("destination").upper()
         print(source_code, dest_code)
 
         try:
@@ -53,8 +53,11 @@ class ShortestPathView(APIView):
                 return Response({"error": "Graph not found"}, status=500)
 
         if source_code not in G or dest_code not in G:
+            # get_airport_details(source)
             return Response(
-                {"error": "Invalid airport code provided."},
+                {
+                    "error": f"Airport ({source_code}) not found. It can happen when there have been no recent flights to the airport in a while. Please try for a different airport "
+                },
                 status=400,
             )
         try:
@@ -122,9 +125,9 @@ class ShortestPathView(APIView):
                     "countryName": airports[0].country,
                     "time": f"0 hr",
                     "distance": f"0 km",
-                    "weather": get_weather_data(
-                        airports[0].longitude, airports[0].latitude
-                    ),
+                    # "weather": get_weather_data(
+                    #     airports[0].longitude, airports[0].latitude
+                    # ),
                 }
                 response_route["paths"].append(a0_defaults)
 
@@ -159,9 +162,9 @@ class ShortestPathView(APIView):
                         "countryName": airports[i + 1].country,
                         "time": f"{time_duration} hr",
                         "distance": f"{distance} km",
-                        "weather": get_weather_data(
-                            airports[i + 1].longitude, airports[i + 1].latitude
-                        ),
+                        # "weather": get_weather_data(
+                        #     airports[i + 1].longitude, airports[i + 1].latitude
+                        # ),
                     }
                     response_route["paths"].append(ai_defaults)
 

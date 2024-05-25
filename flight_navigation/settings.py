@@ -26,6 +26,7 @@ SECRET_KEY = "django-insecure-z_wo%!ju07!0w91^ceo+%u1kjrdu-8@q^8#^##z(m^&-q&7d@+
 AVIATIONSTACK_API_KEY = config("AVIATIONSTACK_API_KEY")
 OPENWEATHERMAP_API_KEY = config("OPENWEATHERMAP_API_KEY")
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

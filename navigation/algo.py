@@ -9,6 +9,7 @@ def yen_k_shortest_paths(G, source, target, k, weight="weight"):
         return nx.dijkstra_path_length(G, source, target, weight)
 
     if source not in G or target not in G:
+        # source = get_nearest_airport(source)
         raise nx.NodeNotFound("Either source or target is not in G")
 
     paths = list(islice(nx.shortest_simple_paths(G, source, target, weight=weight), k))

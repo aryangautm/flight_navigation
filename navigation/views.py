@@ -61,7 +61,7 @@ class ShortestPathView(APIView):
             response_paths = []
 
             for path in paths:
-                response_route = {"paths": []}
+                response_route = {}
                 total_distance = round(
                     sum(
                         G[path[i]][path[i + 1]]["weight"] for i in range(len(path) - 1)
@@ -74,7 +74,6 @@ class ShortestPathView(APIView):
                 for iata in path:
                     node_data = G.nodes[iata]
                     defaults = {
-                        "iata": node_data["iata"],
                         "icao": node_data["icao"],
                         "name": node_data["name"],
                         "city": node_data["city"],
@@ -85,8 +84,8 @@ class ShortestPathView(APIView):
                     airport, created = Airport.objects.update_or_create(
                         iata=node_data["iata"], defaults=defaults
                     )
+
                     airports.append(airport)
-                    response_route["paths"].append(defaults)
 
                 response_route.update(
                     {
@@ -106,6 +105,16 @@ class ShortestPathView(APIView):
                         "totalEmissions": "23312 kg CO2",
                     }
                 )
+                response_route.update({"paths": []})
+                a0_defaults = {
+                    "airportCode": airports[0].iata,
+                    "airportName": airports[0].name,
+                    "cityName": airports[0].city,
+                    "countryName": airports[0].country,
+                    "time": 0,
+                    "distance": 0,
+                }
+                response_route["paths"].append(a0_defaults)
 
                 route, created = Route.objects.get_or_create(
                     source=airports[0],
@@ -119,7 +128,7 @@ class ShortestPathView(APIView):
 
                 for i in range(len(path) - 1):
                     distance = round(G[path[i]][path[i + 1]]["weight"], 2)
-                    time_duration = round(distance / AVERAGE_SPEED_KMH)
+                    time_duration = round((distance / AVERAGE_SPEED_KMH), 2)
                     Route.objects.get_or_create(
                         source=airports[i],
                         destination=airports[i + 1],
@@ -130,12 +139,22 @@ class ShortestPathView(APIView):
                         },
                     )
 
+                    ai_defaults = {
+                        "airportCode": airports[i + 1].iata,
+                        "airportName": airports[i + 1].name,
+                        "cityName": airports[i + 1].city,
+                        "countryName": airports[i + 1].country,
+                        "time": time_duration,
+                        "distance": distance,
+                    }
+                    response_route["paths"].append(ai_defaults)
+
                 response_paths.append(response_route)
 
-                with open("response.json", "w") as file:
-                    json.dump(response_paths, file)
-
-            return Response(response_paths, status=200)
+            response = Response(response_paths, status=200)
+            response["Access-Control-Allow-Origin"] = "*"
+            response["Cross-Origin-Opener-Policy"] = "*"
+            return response
 
         except nx.NetworkXNoPath:
             return Response(

@@ -29,7 +29,11 @@ OPENWEATHERMAP_API_KEY = config("OPENWEATHERMAP_API_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "192.168.29.135:8000",
+    "192.168.29.135",
+    "127.0.0.1",
+]
 
 
 # Application definition
@@ -38,6 +42,7 @@ INSTALLED_APPS = [
     "flight_health",
     "aviation_data",
     "channels",
+    "corsheaders",
     "navigation",
     "rest_framework",
     "django.contrib.admin",
@@ -51,6 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -86,6 +92,7 @@ CHANNEL_LAYERS = {
     },
 }
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

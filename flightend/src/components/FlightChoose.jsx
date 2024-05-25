@@ -8,12 +8,124 @@ import {
   quantas,
   united,
 } from "../assets/logo";
-import { FlightCard, PriceDetails, PriceGraph } from "../container";
-import { Link } from "react-router-dom";
+import { FlightPathCard, RouteDetails, RouteCard } from "../container";
 
 const FlightChoose = () => {
-  const [priceShown, setPriceShow] = useState(true);
+  const pathList = [
+    [
+      {
+        countryCode: "in",
+        countryName: "India",
+        airportCode: "IXC",
+        airportName: "Chandigarh International Airport",
+        cityName: "Chandigarh",
+        time: "0 hr",
+        distance: "0 km",
+        feasibilityScore: "100%",
+      },
+      {
+        countryCode: "in",
+        countryName: "India",
+        airportCode: "DEL",
+        airportName: "Indira Gandhi Internation Airport",
+        cityName: "Delhi",
+        time: "2hrs",
+        distance: "267 km",
+        feasibilityScore: "98.6%",
+      },
+      {
+        countryCode: "us",
+        countryName: "United States of America",
+        airportCode: "JKF",
+        airportName: "John F. Kennedy International Airport",
+        cityName: "New York",
+        time: "19hr",
+        distance: "11213 km",
+        feasibilityScore: "94.2%",
+      },
+    ],
+    [
+      {
+        countryCode: "pk",
+        countryName: "Pakistan",
+        airportCode: "LMO",
+        airportName: "Dastan International Airport",
+        cityName: "Lahore",
+        time: "0 hr",
+        distance: "0 km",
+        feasibilityScore: "100%",
+      },
+      {
+        countryCode: "in",
+        countryName: "India",
+        airportCode: "DEL",
+        airportName: "Indira Gandhi Internation Airport",
+        cityName: "Delhi",
+        time: "2hrs",
+        distance: "885 km",
+        feasibilityScore: "98.6%",
+      },
+      {
+        countryCode: "us",
+        countryName: "United States of America",
+        airportCode: "JKF",
+        airportName: "John F. Kennedy International Airport",
+        cityName: "New York",
+        time: "19hr",
+        distance: "11213 km",
+        feasibilityScore: "94.2%",
+      },
+    ],
+    [
+      {
+        countryCode: "bd",
+        countryName: "Bangladesh",
+        airportCode: "DAC",
+        airportName: "Terror International Airport",
+        cityName: "Dhaka",
+        time: "0 hr",
+        distance: "0 km",
+        feasibilityScore: "100%",
+      },
+      {
+        countryCode: "in",
+        countryName: "India",
+        airportCode: "DEL",
+        airportName: "Indira Gandhi Internation Airport",
+        cityName: "Delhi",
+        time: "2hrs",
+        distance: "696 km",
+        feasibilityScore: "98.6%",
+      },
+      {
+        countryCode: "us",
+        countryName: "United States of America",
+        airportCode: "JKF",
+        airportName: "John F. Kennedy International Airport",
+        cityName: "New York",
+        time: "19hr",
+        distance: "11213 km",
+        feasibilityScore: "94.2%",
+      },
+    ],
+  ];
+  const [active, setActive] = useState(1);
+  const SetView = (active) => {
+    setActive(active);
+  };
 
+  const ActiveView = () => {
+    switch (active) {
+      case 1:
+        return <RouteDetails paths={pathList[0]} />;
+      case 2:
+        return <RouteDetails paths={pathList[1]} />;
+      case 3:
+        return <RouteDetails paths={pathList[2]} />;
+      default:
+        return <RouteDetails paths={pathList[0]} />;
+    }
+  };
   return (
     <>
       <div className="flex lg:flex-row flex-col items-start justify-between gap-16 ">
@@ -27,89 +139,61 @@ const FlightChoose = () => {
           <div className="w-full flex flex-col items-start justify-start  border-[1px] border-[#E9E8FC] rounded-xl">
             <div
               className="w-full cursor-pointer border-b-[1px] border-[#E9E8FC] hover:bg-[#F6F6FE] transition-all duration-300 focus:bg-[#F6F6FE]"
-              onClick={() => setPriceShow(false)}
+              onClick={() => {
+                SetView(1);
+              }}
             >
-              <FlightCard
-                img={hawaiian}
-                duration="16h 45m"
-                name="Hawaiian Airlines"
-                time="7:00AM - 4:15PM"
-                stop="1 stop"
-                hnl="2h 45m in HNL"
-                price="$624"
-                trip="round trip"
+              <RouteCard
+                destination="JFK"
+                destinationName="John F. Kennedy Airport"
+                destinationCountryCode="us"
+                destinationCity="New York"
+                destinationCountryName="United States of America"
+                source="IXC"
+                sourceName="Chandigarh International Airport"
+                sourceCountryCode="in"
+                sourceCity="Chandigarh"
+                sourceCountryName="India"
+                totalTime="21 hr"
+                totalDistance="11480"
+                avgFeasibility="96.4%"
+                totalEmissions="23312 kg CO2"
               />
             </div>
             <div
               className="w-full cursor-pointer border-b-[1px] border-[#E9E8FC]  hover:bg-[#F6F6FE] transition-all duration-300 focus:bg-[#F6F6FE]"
-              onClick={() => setPriceShow(false)}
+              onClick={() => {
+                SetView(2);
+              }}
             >
-              <FlightCard
-                img={japan}
-                duration="18h 22m"
-                name="Japan Airlines"
-                time="7:35AM - 12:15PM"
-                stop="1 stop"
-                hnl="50m in HKG"
-                price="$663"
-                trip="round trip"
+              <FlightPathCard
+                dest="LAO"
+                destName=" Indira Gandhi International Airport"
+                country="India"
+                countryCode="pk"
+                city="Delhi"
+                time="2 Hrs"
+                distance="267.3 KM"
+                feasibility="98.6%"
+                emissions="232 KG of CO2"
               />
             </div>
             <div
               className="w-full cursor-pointer border-b-[1px] border-[#E9E8FC]  hover:bg-[#F6F6FE] transition-all duration-300 focus:bg-[#F6F6FE]"
-              onClick={() => setPriceShow(false)}
+              onClick={() => {
+                SetView(3);
+              }}
             >
-              <FlightCard
-                img={delta}
-                duration="18h 52m"
-                name="Delta Airlines"
-                time="9:47 AM - 4:15 PM"
-                stop="1 stop"
-                hnl="4h 05m in ICN"
-                price="$756"
-                trip="round trip"
-              />
-            </div>
-            <div
-              className="w-full cursor-pointer border-b-[1px] border-[#E9E8FC]  hover:bg-[#F6F6FE] transition-all duration-300 focus:bg-[#F6F6FE]"
-              onClick={() => setPriceShow(false)}
-            >
-              <FlightCard
-                img={quantas}
-                duration="15h 45m"
-                name="Qantas Airlines"
-                time="10:55 AM - 8:15 PM"
-                stop="Nonstop"
-                price="$839"
-                trip="round trip"
-              />
-            </div>
-            <div
-              className="w-full cursor-pointer  hover:bg-[#F6F6FE] transition-all duration-300 focus:bg-[#F6F6FE]"
-              onClick={() => setPriceShow(false)}
-            >
-              <FlightCard
-                img={united}
-                duration="16h 05m"
-                name="United Airlines"
-                time="11:15 AM - 7:45 PM"
-                stop="Nonstop"
-                price="$837"
-                trip="round trip"
-              />
-            </div>
-            <div
-              className="w-full cursor-pointer  hover:bg-[#F6F6FE] transition-all duration-300 focus:bg-[#F6F6FE]"
-              onClick={() => setPriceShow(false)}
-            >
-              <FlightCard
-                img={france}
-                duration="18h 30m"
-                name="France Airlines"
-                time="10:15 AM - 8:45 PM"
-                stop="Nonstop"
-                price="$964"
-                trip="round trip"
+              <FlightPathCard
+                dest="MUH"
+                destName=" Indira Gandhi International Airport"
+                country="India"
+                countryCode="bd"
+                city="Delhi"
+                time="2 Hrs"
+                distance="267.3 KM"
+                feasibility="98.6%"
+                emissions="232 KG of CO2"
               />
             </div>
           </div>
@@ -118,18 +202,23 @@ const FlightChoose = () => {
           </div>
         </div>
 
-        {priceShown && (
+        {/* {priceShown && (
          <PriceGraph/>
-        )}
+        )} */}
 
-        {!priceShown && (
+        {
           <div className="mt-10 flex flex-col gap-10 justify-end items-start lg:items-end">
-            <PriceDetails />
-            <Link to='/passenger-info' className="mt-5">
-           <button className="text-[#605DEC] border-2 border-[#605DEC] py-2 px-3 rounded hover:bg-[#605DEC] hover:text-white transition-all duration-200">Save & Close</button>
-        </Link>
+            {ActiveView()}
+            <button
+              className="text-[#605DEC] border-2 border-[#605DEC] py-2 px-3 rounded hover:bg-[#605DEC] hover:text-white transition-all duration-200"
+              onClick={() => {
+                setPriceShow(true);
+              }}
+            >
+              Close
+            </button>
           </div>
-        )}
+        }
       </div>
     </>
   );

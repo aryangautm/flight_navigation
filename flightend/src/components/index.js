@@ -6,7 +6,8 @@ import Testimonials from "./Testimonials";
 import SelectDetails from "./SelectDetails";
 import FlightChoose from "./FlightChoose";
 import ConfirmShop from "./ConfirmShop";
-
+import RoutesChoose from "./RouteChoose";
+import Hero2 from "./Hero2";
 
 export {
     Navbar,
@@ -16,5 +17,7 @@ export {
     SelectDetails,
     Testimonials,
     FlightChoose,
-    ConfirmShop
+    ConfirmShop,
+    RoutesChoose,
+    Hero2
 }

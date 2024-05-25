@@ -1,5 +1,5 @@
-import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
 import { Footer, Navbar } from "./components";
 import {
   Confirm,
@@ -29,7 +29,7 @@ const App = () => {
           <Route path="/payment" element={<Payment />} />
           <Route path="/confirm" element={<Confirm />} />
         </Routes>
-        <Footer />
+        {/* <Footer />
         <ToastContainer
           position="bottom-center"
           autoClose={5000}
@@ -41,7 +41,7 @@ const App = () => {
           draggable
           pauseOnHover
           theme="dark"
-        />
+        /> */}
       </div>
     </>
   );

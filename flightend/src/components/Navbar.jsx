@@ -28,7 +28,7 @@ const Navbar = () => {
           />
           
        <div className="relative md:hidden flex items-center">
-       {toggle ? (
+       {/* {toggle ? (
           <MdOutlineClose src={close} alt="close" className="w-7 h-7 text-[#605DEC] cursor-pointer" onClick={() => setToggle(false)}/>
           ) : (
             <BiMenuAltLeft className="w-7 h-7 text-[#605DEC] cursor-pointer" onClick={() => setToggle(true)}/>
@@ -42,7 +42,7 @@ const Navbar = () => {
               <li>Flights</li>
             </Link>
             </ul>
-        )}
+        )} */}
         </div>
           {/* <img
             src={tripma}
@@ -61,14 +61,14 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center space-x-8">
           
-          <ul className="hidden md:flex items-center space-x-8 text-[#7C8DB0]">
+          {/* <ul className="hidden md:flex items-center space-x-8 text-[#7C8DB0]">
             <Link
               to="/"
               className={`text-base  hover:text-[#605DEC] transition-all duration-200 ${loactionPath("/") && "text-[#605DEC]"}`}
             >
               <li>Flights</li>
             </Link>
-          </ul>
+          </ul> */}
           <div className="">
           <button className="bg-[#605DEC] py-2 px-4 md:py-3 md:px-5 rounded-[5px] border-2 border-[#605DEC] text-base text-[#FAFAFA] hover:text-[#605DEC] hover:bg-white hover:border-2 hover:border-[#605DEC] transition-all duration-200" onClick={() => setSignin(!signin)}>Sign up</button>
          { signin && ( 

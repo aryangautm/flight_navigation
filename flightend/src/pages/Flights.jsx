@@ -8,7 +8,7 @@ const Flights = () => {
     <div className="mt-[70px]">
      <Hero/>
     </div>
-    <div className="mt-[40px]">
+    {/* <div className="mt-[40px]">
       <FlightDeals/>
     </div>
     <div className="mt-[60px]">
@@ -16,7 +16,7 @@ const Flights = () => {
     </div>
     <div className="mt-[90px]">
     <Testimonials/>
-    </div>
+    </div> */}
     </>
   )
 }

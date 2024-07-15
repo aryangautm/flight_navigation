@@ -12,14 +12,15 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
-from decouple import config
 import environ
 
 env = environ.Env()
-# reading .env file
-environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# reading .env file
+environ.Env.read_env(f"{BASE_DIR}/.env")
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,8 +28,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-z_wo%!ju07!0w91^ceo+%u1kjrdu-8@q^8#^##z(m^&-q&7d@+"
-AVIATIONSTACK_API_KEY = config("AVIATIONSTACK_API_KEY")
-OPENWEATHERMAP_API_KEY = config("OPENWEATHERMAP_API_KEY")
+AVIATIONSTACK_API_KEY = env("AVIATIONSTACK_API_KEY", default="")
+OPENWEATHERMAP_API_KEY = env("OPENWEATHERMAP_API_KEY", default="")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!

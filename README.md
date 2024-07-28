@@ -23,13 +23,13 @@ Naviator is an advanced flight navigation system designed to calculate the best 
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/naviator.git
+    git clone https://github.com/aryangautm/flight_navigation.git
     ```
 2. Navigate to the project directory:
     ```bash
-    cd naviator
+    cd flight_navigation
     ```
-3. Install the backend dependencies:
+3. Create a Virtual Environment and Install the backend dependencies:
     ```bash
     pip install -r requirements.txt
     ```
@@ -41,11 +41,12 @@ Naviator is an advanced flight navigation system designed to calculate the best 
     ```
 5. Set up the PostgreSQL database:
     - Ensure PostgreSQL is installed and running.
-    - Create a database named `naviator`.
-    - Update the database configuration in `naviator/settings.py`.
+    - Create a .env file in the base directory (Refer sample.env)
+    - Add the DATABASE_URL in the .env file.
 
 6. Apply database migrations:
     ```bash
+    python manage.py makemigrations
     python manage.py migrate
     ```
 7. Load datasets for flight routes and airports:
@@ -63,11 +64,10 @@ Naviator is an advanced flight navigation system designed to calculate the best 
         cd frontend
         npm run dev
         ```
-8. Create a .env file. Refer sample.env
 
 ## Usage
 
-1. Open your browser and navigate to `http://localhost:8000` for the backend API and `http://localhost:3000` for the frontend interface.
+1. Open your browser and navigate to `http://localhost:8000` for the backend API and `http://localhost:5173` for the frontend interface.
 2. Enter the IATA codes for the departure and destination airports.
 3. View the optimal route, along with weather updates, distance, time estimates, and risk assessment.
 

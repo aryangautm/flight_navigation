@@ -27,7 +27,7 @@ error_handler.setFormatter(
 )
 logging.getLogger().addHandler(error_handler)
 
-AVERAGE_SPEED_KMH = 900
+AVERAGE_SPEED_KMH = 700
 CO2_EMISSIONS_G = 115
 
 
@@ -64,7 +64,6 @@ class ShortestPathView(APIView):
             paths = yen_k_shortest_paths(
                 G, source_code, dest_code, k=5, weight="weight"
             )
-            print(paths)
             response_paths = []
 
             for path in paths:

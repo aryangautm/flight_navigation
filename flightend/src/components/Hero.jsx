@@ -1,6 +1,6 @@
 import { departure, arrival } from "../assets/icons";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
 import { suggestions } from "../data/constant";
@@ -40,6 +40,47 @@ const Hero = () => {
   const navigate = useNavigate();
   const departureSuggest = AutoSuggest("");
   const arrivalSuggest = AutoSuggest("");
+  const inputRef = useRef(null);
+  const inputRef2 = useRef(null);
+  const suggestionListRef = useRef(null);
+  const suggestionListRef2 = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        inputRef.current &&
+        suggestionListRef.current &&
+        !inputRef.current.contains(event.target) &&
+        !suggestionListRef.current.contains(event.target)
+      ) {
+        departureSuggest.setIsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [departureSuggest]);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        inputRef2.current &&
+        suggestionListRef2.current &&
+        !inputRef2.current.contains(event.target) &&
+        !suggestionListRef2.current.contains(event.target)
+      ) {
+        arrivalSuggest.setIsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [arrivalSuggest]);
+
 
   return (
     <>
@@ -54,15 +95,22 @@ const Hero = () => {
           <div className="flex w-full h-full justify-start items-center border-[1px] border-[#CBD4E6] p-2 lg:rounded-l-[4px] relative">
             <img src={departure} alt="departure" />
             <input
+              ref={inputRef}
               type="text"
               placeholder="From where?"
               value={departureSuggest.input}
-              onChange={departureSuggest.handleInputChange}
-              onFocus={() => departureSuggest.setIsOpen(true)}
+              onChange={(e) => {
+                departureSuggest.handleInputChange(e);
+                if (e.target.value.length > 0) {
+                  departureSuggest.setIsOpen(true);
+                } else {
+                  departureSuggest.setIsOpen(false);
+                }
+              }}
               className="uppercase placeholder:capitalize outline-none border-none ml-2 text-base text-[#7C8DB0] placeholder:text-[#7C8DB0] placeholder:text-base placeholder:leading-6"
             />
             {departureSuggest.isOpen && (
-              <ul className="w-[220px] h-56 absolute top-[70px]  bg-white rounded overflow-scroll">
+              <ul ref={suggestionListRef} className="suggestion-list w-[220px] h-56 absolute top-[70px]  bg-white rounded overflow-scroll">
                 {departureSuggest.matchingSuggestions.map((suggestion) => (
                   <li
                     key={suggestion}
@@ -81,15 +129,22 @@ const Hero = () => {
           <div className="flex w-full h-full justify-start items-center border-[1px] border-[#CBD4E6] p-2">
             <img src={arrival} alt="arrival" />
             <input
+              ref={inputRef2}
               type="text"
               placeholder="Where to?"
               value={arrivalSuggest.input}
-              onChange={arrivalSuggest.handleInputChange}
-              onFocus={() => arrivalSuggest.setIsOpen(true)}
+              onChange={(e) => {
+                arrivalSuggest.handleInputChange(e);
+                if (e.target.value.length > 0) {
+                  arrivalSuggest.setIsOpen(true);
+                } else {
+                  arrivalSuggest.setIsOpen(false);
+                }
+              }}
               className="uppercase placeholder:capitalize outline-none border-none ml-2 text-base text-[#7C8DB0] placeholder:text-[#7C8DB0] placeholder:text-base placeholder:leading-6"
             />
             {arrivalSuggest.isOpen && (
-              <ul className="w-[220px] h-56 absolute top-[70px] bg-white rounded overflow-scroll">
+              <ul ref={suggestionListRef2} className="suggestion-list w-[220px] h-56 absolute top-[70px] bg-white rounded overflow-scroll">
                 {arrivalSuggest.matchingSuggestions.map((suggestion) => (
                   <li
                     key={suggestion}
@@ -104,52 +159,6 @@ const Hero = () => {
               </ul>
             )}
           </div>
-
-          {/* <div className="flex w-full h-full justify-start items-center border-[1px] border-[#CBD4E6] p-2">
-            <img src={calendar} alt="calendar" />
-            <span
-              className="text-[#7C8DB0] text-base leading-6 ml-2 cursor-pointer"
-              onClick={() => setOpenDate(!openDate)}
-            >
-              {startDate
-                ? `${format(startDate, "dd/MM/yyyy")}`
-                : "Departure Date"}
-            </span>
-            {openDate && (
-              <DatePicker
-          selected={startDate}
-          onChange={handleDateChange}
-          inline
-          className="absolute top-64 lg:top-20 z-10"
-               />
-            )}
-          </div> */}
-          {/* <div className="flex w-full h-full justify-start items-center border-[1px] border-[#CBD4E6] p-2">
-            <img src={calendar} alt="clock" />
-            <span
-              className="text-[#7C8DB0] text-base leading-6 ml-2 cursor-pointer"
-              onClick={() => setOpenTime(!openTime)}
-            >
-              {startTime ? `${format(startTime, "hh/mm/ss")}`: "Departure Time"}
-            </span>
-            {openTime && (
-              // <TimePicker selected={startTime} onChange={handleTimeChange} inline className="absolute top-64 lg:top-20 z-10"/>
-              <DesktopTimePicker defaultValue={dayjs('2022-04-17T15:30')} inline className="absolute top-64 lg:top-20 z-10"/>) }
-          </div> */}
-
-          {/* <div className="flex w-full lg:w-[174.92px] h-full justify-start items-center border-[1px] border-[#CBD4E6] p-2" style={{ width: "600px" }}>
-            <div style={{ width: '100%' }}>
-              <label style={{ display: 'block', marginBottom: '0px', color: '#7C8DB0'}} >Departure Time</label>
-              <input
-                type="time"
-                value={departureTime}
-                onChange={handleTimeChange}
-                required
-                style={{width: '100%', padding: '2px', borderRadius: '0px', border: '0px solid red' }}
-              />
-            </div>
-          </div> */}
-
           <button
             className="w-full bg-[#605DEC] text-[#FAFAFA] text-lg leading-6 h-[45px] lg:h-[65px] px-5  lg:rounded-r-[4px]"
             onClick={async () => {

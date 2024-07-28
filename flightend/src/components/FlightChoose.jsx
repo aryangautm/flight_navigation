@@ -8,7 +8,7 @@ import {
   quantas,
   united,
 } from "../assets/logo";
-import { FlightPathCard, RouteDetails, RouteCard } from "../container";
+import { RouteDetails, RouteCard } from "../container";
 
 const FlightChoose = () => {
   const pathList = [

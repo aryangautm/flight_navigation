@@ -36,6 +36,9 @@ class ShortestPathView(APIView):
         source_code = request.GET.get("source").upper()
         dest_code = request.GET.get("destination").upper()
 
+        if source_code == dest_code:
+            return Response({"error": "Source and Destination are same."}, status=404)
+
         try:
             with open("dataset/graph.gpickle", "rb") as f:
                 G = pickle.load(f)

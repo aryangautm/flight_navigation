@@ -35,7 +35,6 @@ class ShortestPathView(APIView):
     def get(self, request):
         source_code = request.GET.get("source").upper()
         dest_code = request.GET.get("destination").upper()
-        print(source_code, dest_code)
 
         try:
             with open("dataset/graph.gpickle", "rb") as f:

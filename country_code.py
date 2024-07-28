@@ -183,6 +183,7 @@ country_codes = {
     "Qatar": "QA",
     "Réunion": "RE",
     "Romania": "RO",
+    "Russia": "RU",
     "Russian Federation": "RU",
     "Rwanda": "RW",
     "Saint Barthélemy": "BL",

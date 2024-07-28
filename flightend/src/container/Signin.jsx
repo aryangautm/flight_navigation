@@ -5,29 +5,29 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 // eslint-disable-next-line react/prop-types
-const Signin = ({signin, setSignin}) => {
+const Signin = ({ signin, setSignin }) => {
   const navigate = useNavigate();
 
-  const[email, setEmail] = useState('')
-  const[password, setPassword] = useState('')
-  const[check1, setCheck1] = useState(false)
-  const[check2, setCheck2] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [check1, setCheck1] = useState(false)
+  const [check2, setCheck2] = useState(false)
 
   const submitInputs = (e) => {
-     e.preventDefault();
+    e.preventDefault();
 
-     if (email.trim() !== '' && password.trim() !== ''){
+    if (email.trim() !== '' && password.trim() !== '') {
       if (check1 && check2) {
         toast.success("Sign in successful")
-        navigate('/') 
+        navigate('/')
         setSignin(false)
       } else {
-       toast.warning("Please check the checkboxes")
+        toast.warning("Please check the checkboxes")
       }
-     } else {
-       toast.warning("Please fill the details")
-      }
-    
+    } else {
+      toast.warning("Please fill the details")
+    }
+
   }
 
   return (

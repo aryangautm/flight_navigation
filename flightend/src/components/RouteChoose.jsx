@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { map } from "../assets/images";
 import { RouteDetails, RouteCard } from "../container";
-import { Link } from "react-router-dom";
 
 // import routes from "./routes.js";
 function RoutesChoose({ routes }) {
+  if (routes == null) {
+    return;
+  }
   if ("error" in routes) {
 
     return (

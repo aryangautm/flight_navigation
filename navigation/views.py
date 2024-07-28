@@ -27,7 +27,7 @@ error_handler.setFormatter(
 )
 logging.getLogger().addHandler(error_handler)
 
-AVERAGE_SPEED_KMH = 900
+AVERAGE_SPEED_KMH = 700
 CO2_EMISSIONS_G = 115
 
 
@@ -35,7 +35,9 @@ class ShortestPathView(APIView):
     def get(self, request):
         source_code = request.GET.get("source").upper()
         dest_code = request.GET.get("destination").upper()
-        print(source_code, dest_code)
+
+        if source_code == dest_code:
+            return Response({"error": "Source and Destination are same."}, status=404)
 
         try:
             with open("dataset/graph.gpickle", "rb") as f:
@@ -64,7 +66,6 @@ class ShortestPathView(APIView):
             paths = yen_k_shortest_paths(
                 G, source_code, dest_code, k=5, weight="weight"
             )
-            print(paths)
             response_paths = []
 
             for path in paths:

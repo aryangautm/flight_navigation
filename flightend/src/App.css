@@ -91,3 +91,9 @@
 .titleh1 {
   @apply text-[#605DEC] text-xl sm:text-2xl font-bold;
 }
+
+.suggestion-list {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Example shadow */
+  /* Other styles for the suggestion list */
+}

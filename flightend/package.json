@@ -4,10 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "serve -s build",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prod": "npm run-script build && serve build"
   },
   "dependencies": {
     "@date-io/date-fns": "^3.0.0",
@@ -26,7 +28,8 @@
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.11.0",
     "react-time-picker": "^7.0.0",
-    "react-toastify": "^9.1.2"
+    "react-toastify": "^9.1.2",
+    "serve": "^14.2.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

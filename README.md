@@ -21,6 +21,11 @@ Naviator is an advanced flight navigation system designed to calculate the best 
 
 ## Installation
 
+0. **Docker**: 
+    ```bash
+    docker compose up --build
+    ```
+
 1. Clone the repository:
     ```bash
     git clone https://github.com/aryangautm/flight_navigation.git

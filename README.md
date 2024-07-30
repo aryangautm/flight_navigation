@@ -24,9 +24,9 @@ Naviator is an advanced flight navigation system designed to calculate the best 
 1. **Build**:
 
    - Build and run the compose project:
-    ```bash
-    docker compose up --build
-    ```
+       ```bash
+       docker compose up --build
+       ```
    - Access the server at localhost:3000
     
 ## Installation

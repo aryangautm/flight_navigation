@@ -22,4 +22,4 @@ RUN npm install -g serve
 EXPOSE 3000
 
 # Serve the build folder
-CMD ["serve", "-s", "build"]
+CMD ["npm", "start"]

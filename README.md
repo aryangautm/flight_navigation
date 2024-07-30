@@ -19,12 +19,16 @@ Naviator is an advanced flight navigation system designed to calculate the best 
 - **Database**: PostgreSQL
 - **Datasets**: Flight routes and airports data
 
-## Installation
+## Docker Installation
 
-0. **Docker**: 
+1. **Build**:
+   - Build and run the compose project:
     ```bash
     docker compose up --build
     ```
+   - Access the server at localhost:3000
+    
+## Installation
 
 1. Clone the repository:
     ```bash

@@ -162,17 +162,23 @@ const Hero = () => {
           <button
             className="w-full bg-[#605DEC] text-[#FAFAFA] text-lg leading-6 h-[45px] lg:h-[65px] px-5  lg:rounded-r-[4px]"
             onClick={async () => {
-              console.log(departureSuggest.input);
-              console.log(arrivalSuggest.input);
-              const url =
-                "http://127.0.0.1:8000/api/shortest-path/?source=" +
-                departureSuggest.input.toUpperCase() +
-                "&destination=" +
-                arrivalSuggest.input.toUpperCase();
-              console.log(url);
-              const res = await fetch(url);
-              const data = await res.json();
-              navigate("/explore", { state: data });
+              try {
+                console.log(departureSuggest.input);
+                console.log(arrivalSuggest.input);
+
+                const url = `http://127.0.0.1:8000/api/shortest-path/?source=${departureSuggest.input.toUpperCase()}&destination=${arrivalSuggest.input.toUpperCase()}`;
+                console.log(url);
+
+                const response = await fetch(url);
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                navigate("/explore", { state: data });
+              } catch (error) {
+                console.error('There was an error with the fetch operation:', error);
+              }
             }}
           >
             Search
